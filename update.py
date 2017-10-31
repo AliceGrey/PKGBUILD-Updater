@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, sys, hashlib, urllib.request
+import os, sys, re, hashlib, urllib.request
 
 def sha256(filename):
     blocksize = 65536
@@ -29,16 +29,21 @@ try:
 except IndexError:
     print("Usage: update.py [old version number] [new version number]")
 
+#Open the PKGBUILD and pull the package name
+with open('PKGBUILD', 'r') as file :
+        filedata = file.read()
+        m = re.search('pkgname\s*=\s*([^"\n]+)', filedata)
+        package=m.group(1)
+
 #Definitions
-package='mullvad'
 dlurl='https://mullvad.net/media/client/mullvad-'
 filetype='.tar.gz'
 oldpackagefile=package + '-' + oldvnum + filetype
 newpackagefile=package + '-' + newvnum + filetype
 
 # Read in the file
-with open('PKGBUILD', 'r') as file :
-  filedata = file.read()
+#with open('PKGBUILD', 'r') as file :
+#  filedata = file.read()
 
 # Hash the old version
 if os.path.exists(oldpackagefile)== True:
