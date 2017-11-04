@@ -41,10 +41,6 @@ filetype='.tar.gz'
 oldpackagefile=package + '-' + oldvnum + filetype
 newpackagefile=package + '-' + newvnum + filetype
 
-# Read in the file
-#with open('PKGBUILD', 'r') as file :
-#  filedata = file.read()
-
 # Hash the old version
 if os.path.exists(oldpackagefile)== True:
     oldhash=sha256(oldpackagefile)
